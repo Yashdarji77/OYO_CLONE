@@ -6,8 +6,8 @@ const Footer = () => {
           <h2 className="text-3xl font-bold text-white mb-4">OYO</h2>
           <p className="text-gray-400 leading-relaxed">
             Discover comfort and convenience at our hotels and homes in over 35
-            countries. Whether you're traveling for business or leisure, we've
-            got you covered.
+            countries. Whether you&apos;re traveling for business or leisure,
+            we&apos;ve got you covered.
           </p>
         </div>
 
