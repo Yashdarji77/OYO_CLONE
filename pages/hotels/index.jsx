@@ -3,27 +3,27 @@ import Header1 from "@/components/Header1";
 import Hotel from "@/components/Hotel";
 import axios from "axios";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const Hotels = ({ hotels }) => {
   const [price, setPrice] = useState(3500);
   const [list, setList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
 
-  const handleCheckList = async () => {
+  const handleCheckList = useCallback(async () => {
     const { data } = await axios.get(
       `/api/facilities/search?val=${checkedList}`
     );
     if (data?.hotels) {
       setList(data.hotels);
     }
-  };
+  }, [checkedList]);
 
   useEffect(() => {
     if (checkedList) {
       handleCheckList();
     }
-  }, [checkedList]);
+  }, [checkedList, handleCheckList]);
 
   const handlePrice = async () => {
     const { data } = await axios.get(`/api/facilities/range?price=${price}`);

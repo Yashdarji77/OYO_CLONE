@@ -1,12 +1,12 @@
 import axios from "axios";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 
 const Payment = () => {
   const router = useRouter();
 
-  const makePayment = async () => {
+  const makePayment = useCallback(async () => {
     const val = {
       id: router.query?.id,
     };
@@ -18,26 +18,33 @@ const Payment = () => {
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
-      description: "Thank You !",
-      handler: function (response) {},
+      description: "Thank You for Your Purchase!",
+      handler: function (response) {
+        alert("Payment successful!");
+      },
       prefill: {
         name: "Yash",
         email: "yash@gmail.com",
-        contact: 9510580470,
+        contact: "9510580470",
+      },
+      theme: {
+        color: "#3399cc",
       },
     };
 
     const paymentObj = new window.Razorpay(options);
     paymentObj.open();
-  };
+  }, [router.query?.id]); 
 
   useEffect(() => {
-    makePayment();
-  }, []);
+    if (router.query?.id) {
+      makePayment();
+    }
+  }, [makePayment, router.query?.id]); 
 
   return (
     <>
-      <Script src="http://checkout.razorpay.com/v1/checkout.js" />
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="afterInteractive" />
     </>
   );
 };
