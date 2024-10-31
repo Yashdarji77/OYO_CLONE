@@ -49,6 +49,7 @@ const SingleHotel = ({ hotel }) => {
                       <span>
                         <Image
                           src={ele.img}
+                          alt="image"
                           width={200}
                           height={200}
                           className="w-8 h-8 rounded-full"

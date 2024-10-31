@@ -5,7 +5,7 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-const hotels = ({ hotels }) => {
+const Hotels = ({ hotels }) => {
   const [price, setPrice] = useState(3500);
   const [list, setList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
@@ -84,4 +84,4 @@ export async function getServerSideProps(ctx) {
   };
 }
 
-export default hotels;
+export default Hotels;

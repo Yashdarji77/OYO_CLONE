@@ -26,6 +26,7 @@ const Hotel = ({ e }) => {
                     <li key={ele.name} className="mr-8 flex items-center">
                       <Image
                         src={ele.img}
+                        alt="facility"
                         width={32}
                         height={32}
                         className="w-8 h-8 rounded-full"
