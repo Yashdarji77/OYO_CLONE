@@ -70,18 +70,34 @@ const Hotels = ({ hotels }) => {
     </>
   );
 };
-
 export async function getServerSideProps(ctx) {
-  const res = await fetch(
-    `${process.env.BASE_URL}/api/hotels?city=${ctx.query.city}`
-  );
-  const data = await res.json();
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/api/hotels?city=${encodeURIComponent(
+        ctx.query.city
+      )}`
+    );
 
-  return {
-    props: {
-      hotels: data.hotels ? data.hotels : data.allhotels,
-    },
-  };
+    if (!res.ok) {
+      throw new Error("Failed to fetch hotels");
+    }
+
+    const data = await res.json();
+
+    return {
+      props: {
+        hotels: data.hotels ? data.hotels : data.allhotels,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching hotels:", error.message);
+    return {
+      props: {
+        hotels: [],
+        error: "Failed to load hotels",
+      },
+    };
+  }
 }
 
 export default Hotels;
