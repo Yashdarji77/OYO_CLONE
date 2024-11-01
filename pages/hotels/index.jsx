@@ -2,28 +2,27 @@ import Filters from "@/components/Filters";
 import Header1 from "@/components/Header1";
 import Hotel from "@/components/Hotel";
 import axios from "axios";
-import Head from "next/head";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 const Hotels = ({ hotels }) => {
   const [price, setPrice] = useState(3500);
   const [list, setList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
 
-  const handleCheckList = useCallback(async () => {
+  const handleCheckList = async () => {
     const { data } = await axios.get(
       `/api/facilities/search?val=${checkedList}`
     );
     if (data?.hotels) {
       setList(data.hotels);
     }
-  }, [checkedList]);
+  };
 
   useEffect(() => {
     if (checkedList) {
       handleCheckList();
     }
-  }, [checkedList, handleCheckList]);
+  }, [checkedList]);
 
   const handlePrice = async () => {
     const { data } = await axios.get(`/api/facilities/range?price=${price}`);
@@ -31,14 +30,12 @@ const Hotels = ({ hotels }) => {
       setList(data.hotels);
     }
   };
+
   return (
     <>
-      <Head>
-        <title>OYO - Hotels</title>
-      </Head>
       <Header1 />
       <div className="grid grid-cols-12">
-        <div className="col-span-3">
+        <div className=" col-span-3">
           <Filters
             price={price}
             setPrice={setPrice}
