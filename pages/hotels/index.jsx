@@ -73,9 +73,7 @@ const Hotels = ({ hotels }) => {
 export async function getServerSideProps(ctx) {
   try {
     const res = await fetch(
-      `${process.env.BASE_URL}/api/hotels?city=${encodeURIComponent(
-        ctx.query.city
-      )}`
+      `${process.env.BASE_URL}/api/hotels?city=${ctx.query.city}`
     );
 
     if (!res.ok) {
